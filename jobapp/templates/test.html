@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+    <link rel="stylesheet" href="{% static "jobapp/css/bootstrap.min.css" %}">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+    </script>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <button id="btn">
+            Click Me
+        </button>
+
+        <div class="mt-2">
+            <div class="spinner-border text-success" style="display: none;"></div>
+            <div class="alert alert-success w-25" style="display: none;"><span id="count"></span> Jobs fetched!</div>
+        </div>
+
+        <div class="mt2">
+            <div id="job"></div>
+        </div>
+
+    </div>
+
+
+
+    <script>
+       $(document).ready(function(){
+           var count = 0;
+           $(document).ajaxStart(function(){
+                $(".spinner-border").css("display", "block"); 
+                $(".alert").css("display", "none"); 
+           })
+
+           //Ajax call
+           $("#btn").click(function(){
+               $.get("data", function(data, status){
+                   console.log(data);
+                   output = `<ul class="list-group">`;
+                    for (var i in data){
+                        output+=`
+                            <li class="list-group-item">
+                                <p>Job =>> ${i}</p>
+                                <p>Company =>> ${data[i].company_name}</p>
+                                <p>Title =>> ${data[i].job_title}</p>
+                                <p>Description =>> ${data[i].description}</p>
+                                <p>Link =>> <a href="${data[i].job_details}" target="_blank">Open</a></p>
+                            </li>
+                        `;
+                        var count = i;
+                    }
+                    $("#count").text(count); 
+                    $("#job").html(output);
+               })
+           })
+
+           $(document).ajaxComplete(function(){
+                $(".spinner-border").css("display", "none"); 
+                $(".alert").css("display", "block"); 
+           })
+       }) 
+
+
+
+    </script>
+</body>
+</html>

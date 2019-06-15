@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from jobapp.views import homeView
+from jobapp.views import homeView, ajax
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", homeView, name="home")
-
+    path("data", homeView, name="data"),
+    path("ajax", ajax, name="ajax"),
 ]
