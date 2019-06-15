@@ -1,0 +1,94 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>All Kenyan jobs search</title>
+    <link rel="stylesheet" href="{% static "jobapp/css/main.css" %}">
+    <link rel="stylesheet" href="{% static "jobapp/css/bootstrap.min.css" %}">
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #333;
+            background-color: #fff;
+            margin: 0px;
+            color: white;
+        }
+
+        .wrapper {
+            background: #085078;
+            background: -webkit-linear-gradient(to bottom, #085078, #85d8ce);
+            background: linear-gradient(to bottom, #085078, #85d8ce);
+            height: 100vh;
+            margin: 0;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            overflow: scroll;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <div class="container-fluid">
+
+            <div class="row mt-5">
+                <div class="col-sm-8 m-auto text-center">
+                    <h1 id="title">Jobb.ke</h1>
+                    <p id="header-info" style="font-size: 18px;">Search quickly through BrighterMonday, Glassdoor</p>
+
+                </div>
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-sm-8 m-auto text-center">
+
+                    <form action="" class="form-group d-flex justify-content-around">
+                        <input type="text" class="form-control" id="search">
+                        <button class="btn btn-submit btn-light" id="search-btn">Search</button>
+                    </form>
+
+                    <div id="stats" class="row text-center w-75 ">
+                            <div class="w-50">
+                                <h4>Searches</h4>
+                                <b>219+</b>
+                            </div>
+
+                            <div class="w-50">
+                                <h4>Jobs</h4>
+                                <b>219+</b>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="boards" class="row" >
+                <ul id="sites" class="col-sm-8 m-auto">
+                    <li class="job-site-tabs" >Glassdoor</li>
+                    <li class="job-site-tabs active" >Brighter Monday</li>
+                    <li class="job-site-tabs" >Ihub.com</li>
+                </ul>
+            </div>
+            
+            <div id="results" class="row">
+                <div class="tab-pane active col-sm-8 m-auto" id="glassdoor">
+                </div>
+                <div class="tab-pane col-sm-8 m-auto" id="brighter"></div>
+                <div class="tab-pane col-sm-8 m-auto" id="ihub"></div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
