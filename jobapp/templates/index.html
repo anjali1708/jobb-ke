@@ -79,11 +79,11 @@
                     <span class="spinner-border text-success m-auto" style="display: none;"></span>
                     <div class="m-auto counter" id="glassdoor-counter"></div>
                     </li>
-                    <li class="job-site-tabs" id="bright-tab">Brighter Monday
+                    <!-- <li class="job-site-tabs" id="bright-tab">Brighter Monday
                     <div class="spinner-border text-success m-auto" style="display: none;"></div>
                     <div class="m-auto counter"></div>
 
-                    </li>
+                    </li> -->
                     <li class="job-site-tabs" id="hub-tab">Ihub.com
                     <div class="spinner-border text-success m-auto" style="display: none;"></div>
                     <div class="m-auto counter" id="ihub-counter"></div>
@@ -93,20 +93,46 @@
             </div>
             
             <div id="results" class="row">
-                <div class="tab-pane active col-sm-7 m-auto" id="glassdoor">
-                    <div id="job-title" style="font-size: 20px" class="mb-1 mt-3">Lorem ipsum dolor sit amet.</div>
-                    <div id="job-description" style="font-size: 15px" class="mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore laboriosam quod officiis sequi doloremque perferendis totam odit tempore. Nihil dolores sint aut ipsum delectus ipsam perferendis alias quaerat expedita quisquam nisi reiciendis corporis ab placeat, nam saepe incidunt repellendus nobis id laboriosam praesentium. Quo aliquam at perferendis commodi nihil quae.</div>
+                <div class="tab-pane active col-sm-8 m-auto" id="glassdoor">
+                    <div id="job-title" style="font-size: 20px" class="mb-1 mt-3"></div>
+                    <div id="job-description" style="font-size: 15px" class="mb-3"></div>
                 </div>
 
-                <div class="tab-pane col-sm-8 m-auto" id="brighter">
-                        <div id="job-title" style="font-size: 20px" class="mb-1 mt-3">Lorem ipsum dolor sit amet.</div>
-                        <div id="job-description" style="font-size: 15px" class="mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore laboriosam quod officiis sequi doloremque perferendis totam odit tempore. Nihil dolores sint aut ipsum delectus ipsam perferendis alias quaerat expedita quisquam nisi reiciendis corporis ab placeat, nam saepe incidunt repellendus nobis id laboriosam praesentium. Quo aliquam at perferendis commodi nihil quae.</div>
-                </div>
+                <!-- <div class="tab-pane col-sm-8 m-auto" id="brighter">
+                        <div id="job-title" style="font-size: 20px" class="mb-1 mt-3"></div>
+                        <div id="job-description" style="font-size: 15px" class="mb-3"></div>
+                </div> -->
                 <div class="tab-pane col-sm-8 m-auto" id="ihub"></div>
             </div>
 
         </div>
+
+          <!-- The Modal -->
+        <div class="modal fade" id="job-modal">
+            <div class="modal-dialog">
+            <div class="modal-content">
+            
+                <!-- Modal Header -->
+                <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                Modal body..
+                </div>
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+                
+            </div>
+            </div>
+        </div>
     </div>
+
 
     <script>
 
@@ -131,8 +157,9 @@
         event.currentTarget.className += " active";
         }
 
-
         $(document).ready(function(){
+            //Hide job boards
+            $("#boards").css("display","none")
             results = document.getElementsByClassName("tab-pane");
             for (i = 0; i < results.length; i++) {
                 var id = `#${results[i].id}`
@@ -157,12 +184,15 @@
             })
 
             $(document).ajaxStart(function(){
+                $(".tab-pane").css("display", "none"); 
+                $("#boards").css("display","block")
                 $(".spinner-border").css("display", "block"); 
                 $(".alert").css("display", "none"); 
                 $(".count").css("display", "none");
             })
 
             $(document).ajaxComplete(function(){
+                $(".tab-pane").css("display", "block"); 
                 $(".spinner-border").css("display", "none"); 
                 $(".alert").css("display", "block"); 
                 $(".count").css("display", "block");
@@ -173,12 +203,13 @@
                 // $.get("search",{keyword: "software-developer"},function(data){
                 //     console.log(data.glassdoor)
                 // })
+                var search = $("#search").val()
                 $.ajax(
                     {
                         type:"GET",
                         url: "search",
                         data:{
-                                keyword: "software-developer"
+                                keyword: search
                         },
                         success: function( data ) 
                         {
@@ -191,14 +222,12 @@
                                     for (var j in data.glassdoor){
                                         glassdoor_output+=`
                                         <li class="list-group-item" style="color:black">
-                                            <p>Job =>> ${i}</p>
                                             <p>Company =>> ${data.glassdoor[j].company}</p>
                                             <p>Title =>> ${data.glassdoor[j].job_title}</p>
                                             <p>Description =>> Empty </p>
                                             <p>Link =>> <a href="${data.glassdoor[j].job_link}" target="_blank">Open</a></p>
                                         </li>`;
                                     }
-
                                 }
                                  
                                 else if(i == "ihub"){
@@ -207,7 +236,6 @@
                                     for (var j in data.ihub){
                                         ihub_output+=`
                                         <li class="list-group-item" style="color:black">
-                                            <p>Job =>> ${i}</p>
                                             <p>Company =>> ${data.ihub[j].company_name}</p>
                                             <p>Title =>> ${data.ihub[j].job_title}</p>
                                             <p>Description =>> ${data.ihub[j].description} </p>
@@ -219,27 +247,11 @@
                                 else{
                                     
                                 }
-
                             } 
                             $("#glassdoor").html(glassdoor_output);                            
                             $("#ihub").html(ihub_output);                            
                         }
                     })
-                // $.get("searchGlass"  , function(data, status){
-                //     output = `<ul class="list-group">`;
-                //     for (var i in data){
-                //         output+=`
-                //             <li class="list-group-item" style="color:black">
-                //                 <p>Job =>> ${i}</p>
-                //                 <p>Company =>> ${data[i].company_name}</p>
-                //                 <p>Title =>> ${data[i].job_title}</p>
-                //                 <p>Description =>> Empty </p>
-                //                 <p>Link =>> <a href="${data[i].job_link}" target="_blank">Open</a></p>
-                //             </li>
-                //         `;
-                //     } 
-                //     $("#glassdoor").html(output);
-                // })
             })
 
         })

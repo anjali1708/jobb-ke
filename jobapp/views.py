@@ -32,8 +32,9 @@ def homeView(request):
     return JsonResponse(data)
 
 
+
 def search(request):
-    keyword = request.GET["keyword"]
+    keyword = ("-").join(request.GET["keyword"].split(" "))
     # keyword = "software-developer"
     response_dict = {}
 
@@ -41,6 +42,7 @@ def search(request):
     headers = {
         'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/  74.0.3729.169 Chrome74.0.3729.169 Safari/537.36',
     }
+
     response = requests.get(url, headers=headers)
     soup = BeautifulSoup(response.text, "html.parser")
     jobs = soup.find_all("li",{"class":"jl"})
@@ -81,6 +83,9 @@ def search(request):
 
 
     return JsonResponse(response_dict)
+
+
+# def job_info(request):
 
 
 def ajax(request):
