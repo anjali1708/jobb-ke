@@ -10,6 +10,7 @@
     <title>All Kenyan jobs search</title>
     <link rel="stylesheet" href="{% static "jobapp/css/main.css" %}">
     <link rel="stylesheet" href="{% static "jobapp/css/bootstrap.min.css" %}">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <style>
         body {
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -55,7 +56,7 @@
 
                     <form action="" class="form-group d-flex justify-content-around">
                         <input type="text" class="form-control" id="search">
-                        <button class="btn btn-submit btn-light" id="search-btn">Search</button>
+                        <button class="btn btn-submit btn-light" id="search-btn">   Search</button>
                     </form>
 
                     <div id="stats" class="row text-center w-75 ">
@@ -74,21 +75,175 @@
 
             <div id="boards" class="row" >
                 <ul id="sites" class="col-sm-8 m-auto">
-                    <li class="job-site-tabs" >Glassdoor</li>
-                    <li class="job-site-tabs active" >Brighter Monday</li>
-                    <li class="job-site-tabs" >Ihub.com</li>
+                    <li class="job-site-tabs active" id="glass-tab">Glassdoor
+                    <span class="spinner-border text-success m-auto" style="display: none;"></span>
+                    <div class="m-auto counter" id="glassdoor-counter"></div>
+                    </li>
+                    <li class="job-site-tabs" id="bright-tab">Brighter Monday
+                    <div class="spinner-border text-success m-auto" style="display: none;"></div>
+                    <div class="m-auto counter"></div>
+
+                    </li>
+                    <li class="job-site-tabs" id="hub-tab">Ihub.com
+                    <div class="spinner-border text-success m-auto" style="display: none;"></div>
+                    <div class="m-auto counter" id="ihub-counter"></div>
+
+                    </li>
                 </ul>
             </div>
             
             <div id="results" class="row">
-                <div class="tab-pane active col-sm-8 m-auto" id="glassdoor">
+                <div class="tab-pane active col-sm-7 m-auto" id="glassdoor">
+                    <div id="job-title" style="font-size: 20px" class="mb-1 mt-3">Lorem ipsum dolor sit amet.</div>
+                    <div id="job-description" style="font-size: 15px" class="mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore laboriosam quod officiis sequi doloremque perferendis totam odit tempore. Nihil dolores sint aut ipsum delectus ipsam perferendis alias quaerat expedita quisquam nisi reiciendis corporis ab placeat, nam saepe incidunt repellendus nobis id laboriosam praesentium. Quo aliquam at perferendis commodi nihil quae.</div>
                 </div>
-                <div class="tab-pane col-sm-8 m-auto" id="brighter"></div>
+
+                <div class="tab-pane col-sm-8 m-auto" id="brighter">
+                        <div id="job-title" style="font-size: 20px" class="mb-1 mt-3">Lorem ipsum dolor sit amet.</div>
+                        <div id="job-description" style="font-size: 15px" class="mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore laboriosam quod officiis sequi doloremque perferendis totam odit tempore. Nihil dolores sint aut ipsum delectus ipsam perferendis alias quaerat expedita quisquam nisi reiciendis corporis ab placeat, nam saepe incidunt repellendus nobis id laboriosam praesentium. Quo aliquam at perferendis commodi nihil quae.</div>
+                </div>
                 <div class="tab-pane col-sm-8 m-auto" id="ihub"></div>
             </div>
 
         </div>
     </div>
+
+    <script>
+
+        function openResults(event, site) {
+        // Declare all variables
+        var i, results, jobSites;
+
+        // Get all elements with class="results" and hide them
+        results = document.getElementsByClassName("tab-pane");
+        for (i = 0; i < results.length; i++) {
+            results[i].style.display = "none";
+        }
+
+        // Get all elements with class="jobSites" and remove the class "active"
+        jobSites = document.getElementsByClassName("job-site-tabs");
+        for (i = 0; i < jobSites.length; i++) {
+            jobSites[i].className = jobSites[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(site).style.display = "block";
+        event.currentTarget.className += " active";
+        }
+
+
+        $(document).ready(function(){
+            results = document.getElementsByClassName("tab-pane");
+            for (i = 0; i < results.length; i++) {
+                var id = `#${results[i].id}`
+                if($
+                (id).hasClass("active")){
+                    results[i].style.display = "block";
+                }else{
+                results[i].style.display = "none";
+                }
+            }
+
+            $("#glass-tab").click(function(e){
+                openResults(e, "glassdoor")
+            })
+
+            $("#bright-tab").click(function(e){
+                openResults(e, "brighter")
+            })
+
+            $("#hub-tab").click(function(e){
+                openResults(e, "ihub")
+            })
+
+            $(document).ajaxStart(function(){
+                $(".spinner-border").css("display", "block"); 
+                $(".alert").css("display", "none"); 
+                $(".count").css("display", "none");
+            })
+
+            $(document).ajaxComplete(function(){
+                $(".spinner-border").css("display", "none"); 
+                $(".alert").css("display", "block"); 
+                $(".count").css("display", "block");
+            })
+                        
+            $("#search-btn").click(function(e){
+                e.preventDefault()
+                // $.get("search",{keyword: "software-developer"},function(data){
+                //     console.log(data.glassdoor)
+                // })
+                $.ajax(
+                    {
+                        type:"GET",
+                        url: "search",
+                        data:{
+                                keyword: "software-developer"
+                        },
+                        success: function( data ) 
+                        {
+                            glassdoor_output = `<ul class="list-group">`;
+                            ihub_output = `<ul class="list-group">`
+                            for (var i in data){
+                                if(i == "glassdoor"){
+                                    var glassdoor_count = data.glassdoor_count
+                                    $("#glassdoor-counter").text(glassdoor_count+" +")
+                                    for (var j in data.glassdoor){
+                                        glassdoor_output+=`
+                                        <li class="list-group-item" style="color:black">
+                                            <p>Job =>> ${i}</p>
+                                            <p>Company =>> ${data.glassdoor[j].company}</p>
+                                            <p>Title =>> ${data.glassdoor[j].job_title}</p>
+                                            <p>Description =>> Empty </p>
+                                            <p>Link =>> <a href="${data.glassdoor[j].job_link}" target="_blank">Open</a></p>
+                                        </li>`;
+                                    }
+
+                                }
+                                 
+                                else if(i == "ihub"){
+                                    var ihub_count = data.ihub_count
+                                    $("#ihub-counter").text(ihub_count+" +")
+                                    for (var j in data.ihub){
+                                        ihub_output+=`
+                                        <li class="list-group-item" style="color:black">
+                                            <p>Job =>> ${i}</p>
+                                            <p>Company =>> ${data.ihub[j].company_name}</p>
+                                            <p>Title =>> ${data.ihub[j].job_title}</p>
+                                            <p>Description =>> ${data.ihub[j].description} </p>
+                                            <p>Link =>> <a href="${data.ihub[j].job_details}" target="_blank">Open</a></p>
+                                        </li>`; 
+                                    }
+
+                                }
+                                else{
+                                    
+                                }
+
+                            } 
+                            $("#glassdoor").html(glassdoor_output);                            
+                            $("#ihub").html(ihub_output);                            
+                        }
+                    })
+                // $.get("searchGlass"  , function(data, status){
+                //     output = `<ul class="list-group">`;
+                //     for (var i in data){
+                //         output+=`
+                //             <li class="list-group-item" style="color:black">
+                //                 <p>Job =>> ${i}</p>
+                //                 <p>Company =>> ${data[i].company_name}</p>
+                //                 <p>Title =>> ${data[i].job_title}</p>
+                //                 <p>Description =>> Empty </p>
+                //                 <p>Link =>> <a href="${data[i].job_link}" target="_blank">Open</a></p>
+                //             </li>
+                //         `;
+                //     } 
+                //     $("#glassdoor").html(output);
+                // })
+            })
+
+        })
+    </script>
 </body>
 
 </html>
