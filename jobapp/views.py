@@ -8,7 +8,6 @@ import json
 def homeView(request):
     data = dict()
     id = 1
-
     try:
         response = requests.get("https://ihub.co.ke/jobs")
     except requests.exceptions as err:
@@ -85,7 +84,8 @@ def search(request):
     return JsonResponse(response_dict)
 
 
-# def job_info(request):
+def job_info(request):
+    return JsonResponse(data)
 
 
 def ajax(request):

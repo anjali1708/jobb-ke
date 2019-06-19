@@ -10,131 +10,112 @@
     <title>All Kenyan jobs search</title>
     <link rel="stylesheet" href="{% static "jobapp/css/main.css" %}">
     <link rel="stylesheet" href="{% static "jobapp/css/bootstrap.min.css" %}">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static "jobapp/js/bootstrap.min.js" %}">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="../../cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
     <style>
-        body {
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 14px;
-            line-height: 1.42857143;
-            color: #333;
-            background-color: #fff;
+        body{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* .row{
+            margin-left: 0px!important;
+            margin-right: 0px!important;
+        } */
+        .input-control,
+        .btn {
+            display: inline !important;
             margin: 0px;
-            color: white;
         }
 
-        .wrapper {
+        #top-container {
+            width: 100%;
             background: #085078;
             background: -webkit-linear-gradient(to bottom, #085078, #85d8ce);
             background: linear-gradient(to bottom, #085078, #85d8ce);
             height: 100vh;
-            margin: 0;
+            margin: auto;
             background-repeat: no-repeat;
             background-attachment: fixed;
             min-height: 100vh;
-            overflow: scroll;
+            overflow-y: scroll;
         }
+
+        #nav {
+            margin: 20px 0px 30px 0px;
+        }
+        .container{
+            color: white
+        }
+
+        #brand-description {
+           margin-bottom: 30px;
+        }
+
+        #search-area{
+            margin: auto;
+        }
+        
+        #search{
+            width: 100%;
+        }
+        #search-btn{
+            width: 100%;
+        }
+
+
     </style>
 </head>
 
 <body>
-    <div class="wrapper">
 
-        <div class="container-fluid">
-
-            <div class="row mt-5">
-                <div class="col-sm-8 m-auto text-center">
-                    <h1 id="title">Jobb.ke</h1>
-                    <p id="header-info" style="font-size: 18px;">Search quickly through BrighterMonday, Glassdoor</p>
-
-                </div>
-            </div>
+    <div class="main" id="top-container">
 
 
-            <div class="row">
-
-                <div class="col-sm-8 m-auto text-center">
-
-                    <form action="" class="form-group d-flex justify-content-around">
-                        <input type="text" class="form-control" id="search">
-                        <button class="btn btn-submit btn-light" id="search-btn">   Search</button>
-                    </form>
-
-                    <div id="stats" class="row text-center w-75 ">
-                            <div class="w-50">
-                                <h4>Searches</h4>
-                                <b>219+</b>
-                            </div>
-
-                            <div class="w-50">
-                                <h4>Jobs</h4>
-                                <b>219+</b>
-                            </div>
+        <div class="row" style="margin-left: 0px; margin-right: 0px">
+            <div class="col-lg-12">
+                <nav id="nav" role="navigation" aria-labelledby="Navigation">
+                    <div class="d-flex flex-row justify-content-end">
+                        <button class="btn btn-outline-light">Hire Me!</button>
                     </div>
-                </div>
+                </nav>
             </div>
+        </div>
+        
 
-            <div id="boards" class="row" >
-                <ul id="sites" class="col-sm-8 m-auto">
-                    <li class="job-site-tabs active" id="glass-tab">Glassdoor
-                    <span class="spinner-border text-success m-auto" style="display: none;"></span>
-                    <div class="m-auto counter" id="glassdoor-counter"></div>
-                    </li>
-                    <!-- <li class="job-site-tabs" id="bright-tab">Brighter Monday
-                    <div class="spinner-border text-success m-auto" style="display: none;"></div>
-                    <div class="m-auto counter"></div>
+        <div class="container" style="padding-top: 100px">
 
-                    </li> -->
-                    <li class="job-site-tabs" id="hub-tab">Ihub.com
-                    <div class="spinner-border text-success m-auto" style="display: none;"></div>
-                    <div class="m-auto counter" id="ihub-counter"></div>
-
-                    </li>
-                </ul>
-            </div>
-            
-            <div id="results" class="row">
-                <div class="tab-pane active col-sm-8 m-auto" id="glassdoor">
-                    <div id="job-title" style="font-size: 20px" class="mb-1 mt-3"></div>
-                    <div id="job-description" style="font-size: 15px" class="mb-3"></div>
+            <div class="row text-center" id="brand-description">
+                <div class="col-sm-12">
+                    <h1 style="font-size: 3.5em; font-weight: 100;">Jobb.ke</h1>
                 </div>
 
-                <!-- <div class="tab-pane col-sm-8 m-auto" id="brighter">
-                        <div id="job-title" style="font-size: 20px" class="mb-1 mt-3"></div>
-                        <div id="job-description" style="font-size: 15px" class="mb-3"></div>
-                </div> -->
-                <div class="tab-pane col-sm-8 m-auto" id="ihub"></div>
+                <div class="col-sm-12">
+                    <p style="font-size: 1em; font-weight: 100;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, nemo!</p>
+                </div>
+
+            </div>
+
+            <div class="row" id="search-area">
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" id="search" placeholder="Type job keywords here" style="display: inline!important">
+                </div>
+
+                <div class="col-sm-2">
+                    <button class="btn btn-dark">Search</button>                    
+                </div>
+                </div>
             </div>
 
         </div>
 
-          <!-- The Modal -->
-        <div class="modal fade" id="job-modal">
-            <div class="modal-dialog">
-            <div class="modal-content">
-            
-                <!-- Modal Header -->
-                <div class="modal-header">
-                <h4 class="modal-title">Modal Heading</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                
-                <!-- Modal body -->
-                <div class="modal-body">
-                Modal body..
-                </div>
-                
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-                
-            </div>
-            </div>
-        </div>
+
     </div>
 
-
-    <script>
+    <!-- <script>
 
         function openResults(event, site) {
         // Declare all variables
@@ -196,8 +177,15 @@
                 $(".spinner-border").css("display", "none"); 
                 $(".alert").css("display", "block"); 
                 $(".count").css("display", "block");
+                
+                $(".modal-open").click(function(){
+                    $("#myModal").show()
+                })
+                $(".modal-close").click(function(){
+                    $("#myModal").hide()
+                })
             })
-                        
+
             $("#search-btn").click(function(e){
                 e.preventDefault()
                 // $.get("search",{keyword: "software-developer"},function(data){
@@ -225,7 +213,7 @@
                                             <p>Company =>> ${data.glassdoor[j].company}</p>
                                             <p>Title =>> ${data.glassdoor[j].job_title}</p>
                                             <p>Description =>> Empty </p>
-                                            <p>Link =>> <a href="${data.glassdoor[j].job_link}" target="_blank">Open</a></p>
+                                            <p>Link =>> <button class="modal-open">Open</button></p>
                                         </li>`;
                                     }
                                 }
@@ -255,7 +243,7 @@
             })
 
         })
-    </script>
+    </script> -->
 </body>
 
 </html>
