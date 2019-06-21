@@ -5,3 +5,4 @@ main.py
 *.pyc
 *.save
 .vscode/
+jobapp/static/img/
