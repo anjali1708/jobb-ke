@@ -1,0 +1,54 @@
+/* 
+.wrapper{
+    background-image: linear-gradient(to top, #c471f5 100%, #fa71cd 100%);
+    color: whitesmoke;
+
+}
+
+.card{
+    box-shadow: #c471f5;
+    color: black;
+    padding: 20px;
+    background-color: #c471f5;
+}
+
+.active{
+    border-bottom: 1px solid rgb(207, 206, 206);
+}
+
+
+#search{
+    width: 80%;
+}
+
+#search-btn{
+
+}
+
+#stats{
+    margin: 30px auto 0 auto;
+}
+
+#boards{
+    margin-top: 50px;
+}
+
+#sites{
+    list-style: none;
+}
+
+#sites .job-site-tabs{
+    font-size: 20px;
+    display: inline-block;
+    float: none;
+    padding: 10px;
+    width: 48%;
+    text-align: center;
+    cursor: pointer;
+
+}
+
+#results{
+    margin-top: 50px;
+}
+ */
