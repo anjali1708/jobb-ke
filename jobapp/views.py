@@ -37,10 +37,11 @@ def homeView(request):
 
 
 def search(request):
-    # keyword = ("-").join(request.GET["keyword"].split(" "))
+    keyword = ("-").join(request.GET["keyword"].split(" "))
     start_time = time.time()
-    keyword = "software-developer"
-    response_dict = {}
+    # keyword = "software-developer"
+    # response_dict = {}
+    glass_dict = {}
 
     def glassdoor():
 
@@ -53,7 +54,6 @@ def search(request):
         soup = BeautifulSoup(response.text, "lxml")
         jobs = soup.find_all("li",{"class":"jl"})
         # print(url)
-        glass_dict = {}
         glass_id = 1
         for job in jobs:
             # print(job.find("div",{"class":"jobEmpolyerName"}))
@@ -63,30 +63,30 @@ def search(request):
             glass_dict[glass_id] = {"company":company, "job_title":job_title, "job_link":job_link}
             glass_id = glass_id + 1
 
-        response_dict["glassdoor"] = glass_dict
+        # response_dict["glassdoor"] = glass_dict
         # response_dict["glassdoor_count"] = glass_id
     
     
-    def ihub():
-        try:
-            ihub_response = requests.get("https://ihub.co.ke/jobs")
-        except requests.exceptions as err:
-            print(err)
-        else:
-            id = 1
-            ihub_soup = BeautifulSoup(ihub_response.text, "lxml")
-            jobs_list = ihub_soup.find_all("div", {"class":"jobsboard-row"})
-            hub_dict = {}
-            for job in jobs_list:
-                job_title = list(job.find_all("a"))[1].text
-                company = job.find("div", {"class":"job-company"}).text
-                job_more = "https://ihub.co.ke{}".format(job.find("a", {"class":"job-more"})["href"])
-                description = job.find("div", {"class":"post-description"}).find("a").text
-                # hub_dict.update({"company_name":company, "job_title":job_title,"description":description,   "job_details":job_more})
-                hub_dict[id] = {"company_name":company, "job_title":job_title,"description":description,  "job_details":job_more}
-                id += 1
+    # def ihub():
+    #     try:
+    #         ihub_response = requests.get("https://ihub.co.ke/jobs")
+    #     except requests.exceptions as err:
+    #         print(err)
+    #     else:
+    #         id = 1
+    #         ihub_soup = BeautifulSoup(ihub_response.text, "lxml")
+    #         jobs_list = ihub_soup.find_all("div", {"class":"jobsboard-row"})
+    #         hub_dict = {}
+    #         for job in jobs_list:
+    #             job_title = list(job.find_all("a"))[1].text
+    #             company = job.find("div", {"class":"job-company"}).text
+    #             job_more = "https://ihub.co.ke{}".format(job.find("a", {"class":"job-more"})["href"])
+    #             description = job.find("div", {"class":"post-description"}).find("a").text
+    #             # hub_dict.update({"company_name":company, "job_title":job_title,"description":description,   "job_details":job_more})
+    #             hub_dict[id] = {"company_name":company, "job_title":job_title,"description":description,  "job_details":job_more}
+    #             id += 1
             
-            response_dict["ihub"] = hub_dict
+    #         response_dict["ihub"] = hub_dict
             # response_dict["ihub_count"] = id
 
     # p = Pool(10)  # Pool tells how many at a time
@@ -95,22 +95,22 @@ def search(request):
     # p.terminate()
     # p.join()
 
-    threads = []
+    # threads = []
 
-    for i in range(os.cpu_count()):
-        threads.append(Thread(target=glassdoor))
-        threads.append(Thread(target=ihub))
+    # for i in range(os.cpu_count()):
+    #     threads.append(Thread(target=glassdoor))
+        # threads.append(Thread(target=ihub))
 
     # print(threads)
-    for thread in threads:
-        thread.start()
+    # for thread in threads:
+    #     thread.start()
 
-    for thread in threads:
-        thread.join()
+    # for thread in threads:
+    #     thread.join()
 
-
+    glassdoor()
     print(time.time() - start_time)
-    return JsonResponse(response_dict)
+    return JsonResponse(glass_dict)
 
 
 

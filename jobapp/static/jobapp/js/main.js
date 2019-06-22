@@ -1,6 +1,122 @@
 
 $(document).ready(function(){
 	"use strict";
+  console.log("Loaded");
+
+    var output = ``
+
+    $(document).ajaxStart(function(){
+      $("#job-listing").html("");
+      $("#results-text").css("display", "none");
+      $("#spinner").css("display", "block");
+    })
+
+    $(document).ajaxComplete(function(){
+      $("#spinner").css("display", "none");
+    })
+
+    console.log("Fetching.....");
+
+    $.ajax({
+      type: "get",
+      url: "data",
+      success: function (data, status) {
+        console.log(data)
+        for (var i in data){
+          output += `
+          <div class="single-post d-flex flex-row">
+          <div class="thumb">
+            <img src="{% static "jobapp/img/post.png" %}" alt="">
+          </div>
+          <div class="details">
+            <div class="title d-flex flex-row justify-content-between">
+              <div class="titles">
+                <a href="single.html"><h4>${data[i].job_title}</h4></a>
+                <h6>${data[i].company_name}</h6>					
+              </div>
+              <ul class="btns">
+                <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
+                <li><a href="#">Apply</a></li>
+              </ul>
+            </div>
+            <p>
+            ${data[i].description}
+            </p>
+            <h5>Job Nature: Full time</h5>
+            <p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
+            <p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
+          </div>
+        </div>          
+
+          `
+        }
+        $("#job-listing").html(output);
+        
+      }
+    });
+
+
+  $("#search-btn").click(function(e){
+    e.preventDefault();
+
+    console.log("Searching.....");
+
+    var search_keyword = $("#search-input").val()
+    $.ajax({
+      type: "get",
+      url: "search",
+      data: {
+        keyword: search_keyword
+      },
+      success: function (data, status) {
+        output = `<h3 class="text-dark mb-3">Search Results</h3>`
+        var count = 0
+        console.log(data)
+        for (var i in data){
+          output += `
+          <div class="single-post d-flex flex-row">
+          <div class="details">
+            <div class="title d-flex flex-row justify-content-between">
+              <div class="titles">
+                <a href="single.html"><h4>${data[i].job_title}</h4></a>
+                <h6>${data[i].company}</h6>					
+              </div>
+              <ul class="btns">
+                <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
+                <li><a href="#">Apply</a></li>
+              </ul>
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
+            </p>
+            <h5>Job Nature: Full time</h5>
+            <p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
+            <p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
+          </div>
+        </div>
+                    
+          `
+          count += 1
+        }
+        $("#results-text").html(`${count} Results found for <span>"${search_keyword}"</span></p>
+        `);
+        $("#results-text").css("display", "block");
+        console.log($("#results-text").text())
+        $("#job-listing").html(output);
+
+      }
+    });
+  })
+
+
+
+
+
+
+
+
+
+
 
 	var window_width 	 = $(window).width(),
 	window_height 		 = window.innerHeight,
@@ -262,7 +378,7 @@ $(document).ready(function(){
     
     $(document).ready(function() {
             $('#mc_embed_signup').find('form').ajaxChimp();
-        });      
+    });      
 
 
 
