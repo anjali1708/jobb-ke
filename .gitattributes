@@ -1,3 +1,5 @@
 jobapp/static/jobapp/* linguist-vendored
 jobapp/static/* linguist-vendored
 jobapp/templates/* linguist-vendored
+jobapp/admin/css/* linguist-vendored
+jobapp/admin/js/* linguist-vendored
