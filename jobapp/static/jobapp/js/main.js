@@ -3,7 +3,7 @@ $(document).ready(function(){
 	"use strict";
   console.log("Loaded");
 
-    var output = ``
+    var output = `<h3 class="text-dark text-center" style="margin-bottom: 20px;"> Top Jobs </h3>`
 
     $(document).ajaxStart(function(){
       $("#job-listing").html("");
@@ -31,7 +31,7 @@ $(document).ready(function(){
           <div class="details">
             <div class="title d-flex flex-row justify-content-between">
               <div class="titles">
-                <a href="single.html"><h4>${data[i].job_title}</h4></a>
+                <h4>${data[i].job_title}</h4>
                 <h6>${data[i].company_name}</h6>					
               </div>
               <ul class="btns">
@@ -78,7 +78,7 @@ $(document).ready(function(){
           <div class="details">
             <div class="title d-flex flex-row justify-content-between">
               <div class="titles">
-                <a href="single.html"><h4>${data[i].job_title}</h4></a>
+                <h4>${data[i].job_title}</h4>
                 <h6>${data[i].company}</h6>					
               </div>
               <ul class="btns">
