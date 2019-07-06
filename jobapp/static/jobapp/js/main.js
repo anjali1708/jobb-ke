@@ -24,7 +24,7 @@ $(document).ready(function(){
         console.log(data)
         for (var i in data){
           output += `
-          <div class="single-post d-flex flex-row">
+          <div class="single-post d-flex flex-row animated fadeInUp">
           <div class="thumb">
             <img src="{% static "jobapp/img/post.png" %}" alt="">
           </div>
@@ -32,7 +32,7 @@ $(document).ready(function(){
             <div class="title d-flex flex-row justify-content-between">
               <div class="titles">
                 <h4>${data[i].job_title}</h4>
-                <h6>${data[i].company_name}</h6>					
+                <h6><a href="${data[i].company_link}" target="_blank">${data[i].company_name}</a></h6>					
               </div>
               <ul class="btns">
                 <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
@@ -42,8 +42,8 @@ $(document).ready(function(){
             <p>
             ${data[i].description}
             </p>
-            <h5>Job Nature: Full time</h5>
-            <p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
+            <h5>Job Nature : ${data[i].job_category}</h5>
+            <p class="address">${data[i].add_date}</p>
             <p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
           </div>
         </div>          
@@ -60,7 +60,6 @@ $(document).ready(function(){
     e.preventDefault();
 
     console.log("Searching.....");
-
     var search_keyword = $("#search-input").val()
     $.ajax({
       type: "get",
@@ -69,12 +68,12 @@ $(document).ready(function(){
         keyword: search_keyword
       },
       success: function (data, status) {
-        output = `<h3 class="text-dark mb-3">Search Results</h3>`
+        output = `<h3 class="text-dark mb-3 animated fadeIn">Search Results</h3>`
         var count = 0
         console.log(data)
         for (var i in data){
           output += `
-          <div class="single-post d-flex flex-row">
+          <div class="single-post d-flex flex-row animated fadeInUp">
           <div class="details">
             <div class="title d-flex flex-row justify-content-between">
               <div class="titles">
@@ -93,9 +92,7 @@ $(document).ready(function(){
             <p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
             <p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
           </div>
-        </div>
-                    
-          `
+        </div>`
           count += 1
         }
         $("#results-text").html(`${count} Results found for <span>"${search_keyword}"</span></p>
@@ -107,6 +104,7 @@ $(document).ready(function(){
       }
     });
   })
+  
 
 
 

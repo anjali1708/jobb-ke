@@ -26,8 +26,10 @@ def homeView(request):
             company = job.find("div", {"class":"job-company"}).text
             job_more = "https://ihub.co.ke{}".format(job.find("a", {"class":"job-more"})["href"])
             description = job.find("div", {"class":"post-description"}).find("a").text
-
-            job_dict.update({"company_name":company, "job_title":job_title,"description":description, "job_details":job_more})
+            add_date = job.find("div", {"class":"job-time"}).text
+            job_category = job.find("div", {"class":"job-cat"}).text
+            company_link = job.find("a", {"class": "post-company"})["href"]
+            job_dict.update({"company_name":company, "job_title":job_title,"description":description, "job_details":job_more, "add_date":add_date, "job_category":job_category, "company_link":company_link})
             data[id] = job_dict
             
             id += 1
@@ -44,7 +46,6 @@ def search(request):
     glass_dict = {}
 
     def glassdoor():
-
         url = "https://www.glassdoor.com/Job/jobs.htm?suggestCount=0&suggestChosen=false&clickSource=searchBtn&typedKeyword={}&sc.keyword={}&locT=N&locId=130&jobType=".format(keyword,keyword)
         headers = {
             'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/  74.0.3729.169 Chrome74.0.3729.169 Safari/537.36',
@@ -66,7 +67,6 @@ def search(request):
         # response_dict["glassdoor"] = glass_dict
         # response_dict["glassdoor_count"] = glass_id
     
-    
     # def ihub():
     #     try:
     #         ihub_response = requests.get("https://ihub.co.ke/jobs")
@@ -87,7 +87,7 @@ def search(request):
     #             id += 1
             
     #         response_dict["ihub"] = hub_dict
-            # response_dict["ihub_count"] = id
+    #         response_dict["ihub_count"] = id
 
     # p = Pool(10)  # Pool tells how many at a time
     # glassdoor_process = p.map(parse, glassdoor)
@@ -95,18 +95,18 @@ def search(request):
     # p.terminate()
     # p.join()
 
-    # threads = []
+    threads = []
 
-    # for i in range(os.cpu_count()):
-    #     threads.append(Thread(target=glassdoor))
-        # threads.append(Thread(target=ihub))
+    for i in range(os.cpu_count()):
+        threads.append(Thread(target=glassdoor))
+        #threads.append(Thread(target=ihub))
 
-    # print(threads)
-    # for thread in threads:
-    #     thread.start()
+    print(threads)
+    for thread in threads:
+        thread.start()
 
-    # for thread in threads:
-    #     thread.join()
+    for thread in threads:
+        thread.join()
 
     glassdoor()
     print(time.time() - start_time)

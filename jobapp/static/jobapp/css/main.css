@@ -2462,6 +2462,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .single-popular-post .details p {
   margin-bottom: 0;
+  color: #000;
+
 }
 
 .single-popular-post h4 {
@@ -2601,18 +2603,28 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .post-list .single-post {
   padding: 30px;
-  background-color: #dfdfdf;
+  background-color: rgb(245, 245, 245);
   margin-bottom: 30px;
   border-radius: 5px;
 }
 
+.post-list .single-post:hover{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  cursor: pointer
+} 
+
 .post-list .single-post h6 {
   margin-top: 10px;
-  color: #222;
+  color: #000;
   font-size: 14px;
   font-weight: 300;
   margin-bottom: 15px;
 }
+
+.post-list .single-post{
+  color: #000;
+}
+
 
 @media (max-width: 414px) {
   .post-list .single-post h6 {
