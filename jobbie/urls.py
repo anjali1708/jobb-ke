@@ -20,7 +20,7 @@ from jobapp.views import homeView, ajax, home, search
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path("data", homeView, name="data"),
-    path("", ajax, name="ajax"),
-    path("ajax", home, name="home"),
+    path("", ajax, name="home"),
+    path("ajax", home, name="ajax"),
     path("search", search, name="search"),
 ]

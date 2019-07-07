@@ -1,407 +1,267 @@
 {% load static %}
+	<!DOCTYPE html>
+	<html lang="en-us" class="no-js">
+	<head>
+		<!-- Mobile Specific Meta -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- Favicon-->
+		<link rel="shortcut icon" href="img/fav.png">
+		<!-- Author Meta -->
+		<meta name="author" content="codepixer">
+		<!-- Meta Description -->
+		<meta name="description" content="">
+		<!-- Meta Keyword -->
+		<meta name="keywords" content="">
+		<!-- meta character set -->
+		<meta charset="UTF-8">
+		<!-- Site Title -->
+		<title>Job Listing</title>
 
-<!DOCTYPE html>
-<html lang="en">
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
+			<!--
+			CSS
+			============================================= -->
+			<link rel="stylesheet" href="{% static "jobapp/css/linearicons.css" %}">
+			<link rel="stylesheet" href="css/font-awesome.min.css">
+			<!-- <link rel="stylesheet" href="{% static "jobapp/css/bootstrap.css" %}"> -->
+			<link rel="stylesheet" href="{% static "jobapp/js/css/bootstrap.min.css" %}">
+			<link rel="stylesheet" href="{% static "jobapp/css/magnific-popup.css" %}">
+			<link rel="stylesheet" href="{% static "jobapp/css/nice-select.css" %}">					
+			<link rel="stylesheet" href="{% static "jobapp/css/animate.min.css" %}">
+			<link rel="stylesheet" href="{% static "jobapp/css/owl.carousel.css" %}">
+			<link rel="stylesheet" href="{% static "jobapp/css/main.css" %}">
+		</head>
+		<body>
+			  <header id="header" id="home">
+			    <div class="container">
+			    	<div class="row align-items-center justify-content-between d-flex">
+				      <div id="logo">
+				        <a href="index.html"><img src="img/logo.png" alt="" title="" /></a>
+				      </div>
+				      <nav id="nav-menu-container">
+				        <ul class="nav-menu">
+				          <li class="menu-active"><a href="https://victornguli.github.io/portfolio/">Home</a></li>			          				          
+				        </ul>
+				      </nav><!-- #nav-menu-container -->		    		
+			    	</div>
+			    </div>
+			  </header><!-- #header -->
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>All Kenyan jobs search</title>
-    <link rel="stylesheet" href="{% static "jobapp/css/main.css" %}">
-    <link rel="stylesheet" href="{% static "jobapp/css/bootstrap.min.css" %}">
-    <link rel="stylesheet" href="{% static "jobapp/js/bootstrap.min.js" %}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="../../cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+			<!-- start banner Area -->
+			<section class="banner-area relative" id="home">	
+				<div class="overlay overlay-bg"></div>
+				<div class="container">
+					<div class="row search-page-top d-flex align-items-center justify-content-center">
+						<div class="banner-content col-lg-12">
+							<h1 class="text-white">
+								Jobb Ke				
+							</h1>
+							<p class="text-white link-nav">
+									Search Quickly through Kenyan job boards
+								<!-- <a href="index.html">Home </a> <span class="lnr lnr-arrow-right"></span> <a href="search.html"> Job details page</a> -->
+							</p>	
+							<form action="" class="serach-form-area">
+								<div class="row justify-content-center form-wrap">
+									<div class="col-lg-10 form-cols">
+										<input type="text" id="search-input" class="form-control" name="search" placeholder="What is the title of the job that you are you looking for?">
+									</div>
+									<!-- <div class="col-lg-3 form-cols">
+										<div class="default-select" id="default-selects"">
+											<select>
+												<option value="1">Select area</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-lg-3 form-cols">
+										<div class="default-select" id="default-selects2">
+											<select>
+												<option value="1">All Category</option>
+												<option value="2">Healthcare</option>
+												<option value="3">Technology</option>
+												<option value="4">Goverment</option>
+												<option value="5">Business</option>
+											</select>
+										</div>										
+									</div> -->
+									<div class="col-lg-2 form-cols">
+									    <button type="button" id="search-btn" class="btn btn-info">
+									      <span class="lnr lnr-magnifier"></span> Search
+										</button>
+									</div>	
+									
+								</div>
+							</form>	
+
+							<div id="spinner" class="m-auto" style="display: none">
+								<div class="spinner-border text-light" style="width: 4em; height: 4em;"></div>
+							</div>	
+							<!-- <div class="spinner-grow text-info" style="margin: auto;"></div>-->
+							<p class="text-white" style="display: none" id="results-text">Results found for <span>"Web developer"</span></p>
+						</div>											
+					</div>
+				</div>
+			</section>
+			<!-- End banner Area -->	
+			
+			<!-- Start post Area -->
+			<section class="post-area section-gap" id="post-area">
+				<div class="container">
+					<div class="row justify-content-center d-flex">
+						<div class="col-lg-8 post-list" id="job-listing">
+							<!--
+							<div class="single-post d-flex flex-row">
+								<div class="thumb">
+									<img src="img/post.png" alt="">
+									<ul class="tags">
+										<li>
+											<a href="#">Art</a>
+										</li>
+										<li>
+											<a href="#">Media</a>
+										</li>
+										<li>
+											<a href="#">Design</a>					
+										</li>
+									</ul>
+								</div>
+								<div class="details">
+									<div class="title d-flex flex-row justify-content-between">
+										<div class="titles">
+											<a href="single.html"><h4>Creative Art Designer</h4></a>
+											<h6>Premium Labels Limited</h6>					
+										</div>
+										<ul class="btns">
+											<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
+											<li><a href="#">Apply</a></li>
+										</ul>
+									</div>
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
+									</p>
+									<h5>Job Nature: Full time</h5>
+									<p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
+									<p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
+								</div>
+							</div> -->
+						</div>
+					</div>
+				</div>	
+			</section>
+			
+			<!-- End post Area -->
+
+			<!-- Start callto-action Area -->
+			<!-- <section class="callto-action-area section-gap">
+				<div class="container">
+					<div class="row d-flex justify-content-center">
+						<div class="menu-content col-lg-9">
+							<div class="title text-center">
+								<h1 class="mb-10 text-white">Join us today without any hesitation</h1>
+								<p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+								<a class="primary-btn" href="#">I am a Candidate</a>
+								<a class="primary-btn" href="#">Request Free Demo</a>
+							</div>
+						</div>
+					</div>	
+				</div>	
+			</section> -->
+			<!-- End calto-action Area -->			
+		
+			<!-- start footer Area -->
+			<!--		
+			<footer class="footer-area section-gap">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3  col-md-12">
+							<div class="single-footer-widget">
+								<h6>Top Products</h6>
+								<ul class="footer-nav">
+									<li><a href="#">Managed Website</a></li>
+									<li><a href="#">Manage Reputation</a></li>
+									<li><a href="#">Power Tools</a></li>
+									<li><a href="#">Marketing Service</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-lg-6  col-md-12">
+							<div class="single-footer-widget newsletter">
+								<h6>Newsletter</h6>
+								<p>You can trust us. we only send promo offers, not a single spam.</p>
+								<div id="mc_embed_signup">
+									<form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="form-inline">
+
+										<div class="form-group row" style="width: 100%">
+											<div class="col-lg-8 col-md-12">
+												<input name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '" required="" type="email">
+												<div style="position: absolute; left: -5000px;">
+													<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+												</div>
+											</div> 
+										
+											<div class="col-lg-4 col-md-12">
+												<button class="nw-btn primary-btn">Subscribe<span class="lnr lnr-arrow-right"></span></button>
+											</div> 
+										</div>		
+										<div class="info"></div>
+									</form>
+								</div>		
+							</div>
+						</div>
+						<div class="col-lg-3  col-md-12">
+							<div class="single-footer-widget mail-chimp">
+								<h6 class="mb-20">Instragram Feed</h6>
+								<ul class="instafeed d-flex flex-wrap">
+									<li><img src="img/i1.jpg" alt=""></li>
+									<li><img src="img/i2.jpg" alt=""></li>
+									<li><img src="img/i3.jpg" alt=""></li>
+									<li><img src="img/i4.jpg" alt=""></li>
+									<li><img src="img/i5.jpg" alt=""></li>
+									<li><img src="img/i6.jpg" alt=""></li>
+									<li><img src="img/i7.jpg" alt=""></li>
+									<li><img src="img/i8.jpg" alt=""></li>
+								</ul>
+							</div>
+						</div>						
+					</div>
+
+					<div class="row footer-bottom d-flex justify-content-between">
+						<p class="col-lg-8 col-sm-12 footer-text m-0 text-white">
+						</p>
+						<div class="col-lg-4 col-sm-12 footer-social">
+							<a href="#"><i class="fa fa-facebook"></i></a>
+							<a href="#"><i class="fa fa-twitter"></i></a>
+							<a href="#"><i class="fa fa-dribbble"></i></a>
+							<a href="#"><i class="fa fa-behance"></i></a>
+						</div>
+					</div>
+				</div>
+			</footer>
+			-->
+			<!-- End footer Area -->		
 
 
-    <style>
-        body{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        /* .row{
-            margin-left: 0px!important;
-            margin-right: 0px!important;
-        } */
+			<script src="{% static "jobapp/js/vendor/jquery-2.2.4.min.js" %}"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+			<script src="{% static "jobapp/js/vendor/bootstrap.min.js" %} "></script>			
+			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+  			<script src="{% static "jobapp/js/easing.min.js" %} "></script>			
+			<script src="{% static "jobapp/js/hoverIntent.js" %}"></script>
+			<script src="{% static "jobapp/js/superfish.min.js" %}"></script>	
+			<script src="{% static "jobapp/js/jquery.ajaxchimp.min.js" %}"></script>
+			<script src="{% static "jobapp/js/jquery.magnific-popup.min.js" %}" ></script>	
+			<script src="{% static "jobapp/js/owl.carousel.min.js" %}"></script>			
+			<script src="{% static "jobapp/js/jquery.sticky.js" %}"></script>
+			<script src="{% static "jobapp/js/jquery.nice-select.min.js" %}"></script>			
+			<script src="{% static "jobapp/js/parallax.min.js" %}"></script>		
+			<script src="{% static "jobapp/js/mail-script.js" %}"></script>	
+			<script src="{% static "jobapp/js/main.js" %}"></script>	
 
-        #top-container {
-            width: 100%;
-            background: #085078;
-            background: -webkit-linear-gradient(to bottom, #085078, #85d8ce);
-            background: linear-gradient(to bottom, #085078, #85d8ce);
-            height: 100vh;
-            margin: auto;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            min-height: 100vh;
-            overflow-y: scroll;
-        }
-
-        #nav {
-            margin: 20px 0px 30px 0px;
-        }
-        .container{
-            color: white
-        }
-
-        #brand-description {
-           margin-bottom: 20px;
-        }
-        #search-form{
-            position: relative;
-            max-width: 800px;
-            margin:0 auto;
-            margin-bottom: 80px
-        }
-        #search{
-            position: absolute;
-            line-height: 50px;
-            height: 50px;
-            width: 100%;
-            max-width: 800px;
-            border: 1px solid rgb(49, 126, 170);
-            border-radius: 5px;
-            padding: 10px;
-        }
-        #search-btn{
-            width: 82.5px;
-            height: 50px;
-            line-height: 50px;
-            font-size: 2rem;
-            position: absolute;
-            right: 0;
-            top: 0;
-            -webkit-border-top-left-radius: 0;
-            -webkit-border-top-right-radius: 5px;
-            -webkit-border-bottom-right-radius: 5px;
-            -webkit-border-bottom-left-radius: 0;
-            -moz-border-radius-topleft: 0;
-            -moz-border-radius-topright: 5px;
-            -moz-border-radius-bottomright: 5px;
-            -moz-border-radius-bottomleft: 0;
-            border-top-left-radius: 0;
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;
-            border-bottom-left-radius: 0;
-            border: none;
-            background: #1ce6e6;
-            color: rgb(217, 220, 221);
-        }
-
-        #tab-switch{
-            margin: auto;
-            max-width: 800px;
-            width: 100%;
-            padding-top: 20px;
-        }
-
-        .tab{
-            float: left;
-            width: 33%;
-            text-align: center;
-            /* margin-left: 20px; */
-            padding: 0px 0px;
-            cursor: pointer
-        }
-
-        .clear-fix{
-            clear: both;
-        }
-
-        #job-results{
-            width: 100%;
-            max-width: 900px;
-            margin: 30px auto;
-        }
-
-        .card{
-            background-color: whitesmoke;
-            color: black;
-            margin-bottom: 10px;
-            border-left: 5px solid rgb(5, 129, 15);
-            border-top-left-radius: 5px;
-            padding: 0;
-        }
-        .active{
-            border-bottom: 2px solid teal
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="main" id="top-container">
+			<script>
+				new WOW().init()
+			</script>
+			
+		</body>
+	</html>
 
 
-        <div class="row" style="margin-left: 0px; margin-right: 0px">
-            <div class="col-lg-12">
-                <nav id="nav" role="navigation" aria-labelledby="Navigation">
-                    <div class="d-flex flex-row justify-content-end">
-                        <button class="btn btn-outline-light">Hire Me!</button>
-                    </div>
-                </nav>
-            </div>
-        </div>
-        
 
-        <div class="container" style="padding-top: 50px">
-
-            <div class="row text-center" id="brand-description">
-                <div class="col-sm-12">
-                    <h1 style="font-size: 3.5em; font-weight: 100;">Jobb.ke</h1>
-                </div>
-
-                <div class="col-sm-12">
-                    <p style="font-size: 1em; font-weight: 100;">Search Quickly through Kenyan job boards</p>
-                </div>
-                
-            </div>
-                <form class="" method="GET" action="" id="search-form">
-                    <input class="" type="text" id="search" placeholder="Type job keywords here">
-                    <button type="submit" class="" id="search-btn"><span class="fa fa-search"></span></button>     
-                </form>
-        </div>
-
-        <div class="container" >
-                <div class="" id="tab-switch">
-                    <div class="tab active" id="glass">Glassdoor <div class="spinner-border text-muted" style="display: none; margin: auto"></div> </div>
-                    <div class="tab" id="hub">Ihub
-                            <div class="spinner-border text-muted" style="display: none; margin: auto"></div>
-                    </div>
-                    <div class="tab" id="brighter">Brighter
-                            <div class="spinner-border text-muted" style="display: none; margin: auto"></div>
-                    </div>
-                    <div class="clear-fix"></div>
-
-                </div>
-
-                <div id="job-results">
-                    <div class="results result-active" id="glassdoor-results">
-                        <!-- <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Lorem, ipsum dolor.</h5>
-                                <p class="card-text">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit tempora ipsum blanditiis quis tempore rerum quae, labore voluptatem repellat corporis placeat debitis illum impedit! Ullam obcaecati perferendis veniam libero illo?
-                                </p>
-                                <div style="float: right">
-                                    <a href="" class="btn btn-outline-primary mr-3">Open</a>
-                                    <a href="" class="btn btn-outline-primary">Peek</a>
-                                </div>
-
-                           </div>
-                        </div> -->
-
-                    </div>
-
-                    <div class="results" id="ihub-results">
-                        
-                    </div>
-                    
-                    <div class="results" id="brighter-results">
-
-                    </div>
-                </div>
-        </div>
-
-
-    </div>
-
-    <script>
-
-        function openResults(event, site) {
-        // Declare all variables
-        var i, results, jobSites;
-
-        console.log(site)
-
-        // Get all elements with class="results" and hide them
-        results = document.getElementsByClassName("results");
-        for (i = 0; i < results.length; i++) {
-            results[i].style.display = "none";
-        }
-
-        // Get all elements with class="jobSites" and remove the class "active"
-        jobSites = document.getElementsByClassName("tab");
-        for (i = 0; i < jobSites.length; i++) {
-            jobSites[i].className = jobSites[i].className.replace(" active", "");
-        }
-
-        // Show the current tab, and add an "active" class to the button that opened the tab
-        document.getElementById(site).style.display = "block";
-        event.currentTarget.className += " active";
-        }
-
-        $(document).ready(function(){
-            //Hide job boards
-            // $("#boards").css("display","none")
-            results = document.getElementsByClassName("results");
-            for (i = 0; i < results.length; i++) {
-                var id = `#${results[i].id}`
-                if($
-                (id).hasClass("result-active")){
-                    results[i].style.display = "block";
-                }else{
-                results[i].style.display = "none";
-                }
-            }
-
-            $("#glass").click(function(e){
-                openResults(e, "glassdoor-results")
-            })
-
-            $("#brighter").click(function(e){
-                openResults(e, "brighter-results")
-            })
-
-            $("#hub").click(function(e){
-                openResults(e, "ihub-results")
-            })
-
-            $(document).ajaxStart(function(){
-                $(".tab-pane").css("display", "none"); 
-                $("#boards").css("display","block")
-                $(".spinner-border").css("display", "block"); 
-                $(".alert").css("display", "none"); 
-                $(".count").css("display", "none");
-            })
-
-            $(document).ajaxComplete(function(){
-                $(".tab-pane").css("display", "block"); 
-                $(".spinner-border").css("display", "none"); 
-                $(".alert").css("display", "block"); 
-                $(".count").css("display", "block");
-                
-                $(".modal-open").click(function(){
-                    $("#myModal").show()
-                })
-                $(".modal-close").click(function(){
-                    $("#myModal").hide()
-                })
-            })
-
-            $("#search-btn").click(function(e){
-                e.preventDefault()
-                // $.get("search",{keyword: "software-developer"},function(data){
-                //     console.log(data.glassdoor)
-                // })
-                var search = $("#search").val()
-                $.ajax(
-                    {
-                        type:"GET",
-                        url: "search",
-                        data:{
-                                keyword: search
-                        },
-                        success: function( data, status ) 
-                        {
-                            glassdoor_output = ``;
-                            ihub_output = ``;
-                            // data = JSON.parse(data)
-                            console.log(data)
-                            for (var i in data){
-                                // console.log(data[i])
-                                if(i === "ihub"){
-                                    for (var job in data[i]){
-                                    ihub_output += `
-                                    <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${data[i][job].job_title}</h5> at <h6>${data[i][job].company_name}<h6>    
-                                        <p class="card-text">
-                                        ${data[i][job].description}
-                                        </p>
-                                        <div style="float: right">
-                                            <a href="" class="btn btn-outline-primary mr-3">Open</a>
-                                            <a href="" class="btn btn-outline-primary">Peek</a>
-                                        </div>
-                                    </div>
-                                    </div> 
-                                    `
-                                    }
-                                $("#ihub-results").html(ihub_output);
-                                }
-
-                                if(i === "glassdoor"){
-                                for (var job in data[i]){
-                                glassdoor_output += `
-                                    <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${data[i][job].job_title}</h5> at <h6>${data[i][job].company}<h6>    
-                                        <p class="card-text">
-                                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit tempora ipsum blanditiisquistempore rerum quae, labore voluptatem repellat corporis placeat debitis illum impedit!Ullamobcaecati perferendis veniam libero illo?
-                                        </p>
-                                        <div style="float: right">
-                                            <a href="" class="btn btn-outline-primary mr-3">Open</a>
-                                            <a href="" class="btn btn-outline-primary">Peek</a>
-                                        </div>
-                                    </div>
-                                    </div>                               
-                                
-                                `;
-                                // console.log(j)
-                                }
-                            $("#glassdoor-results").html(glassdoor_output);
-
-                             }
-                            }
-                            
-                            // console.log(glassdoor_output)
-
-                            // for(var i in data){}
-                            // glassdoor_output = `<ul class="list-group">`;
-                            // ihub_output = `<ul class="list-group">`
-                            // for (var i in data){
-                            //     if(i == "glassdoor"){
-                            //         var glassdoor_count = data.glassdoor_count
-                            //         $("#glassdoor-counter").text(glassdoor_count+" +")
-                            //         for (var j=0; j<data.glassdoor.length; j++ ){
-                            //             glassdoor_output+=`
-                            //             <div class="card">
-                            //                 <div class="card-body">
-                            //                     <h5 class="card-title">${data.glassdoor[j].title}</h5> at <h6>${data.glassdorr[j].company}</h6>    
-                            //                     <p class="card-text">
-                            //                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit tempora ipsum blanditiis quis tempore rerum quae, labore voluptatem repellat corporis placeat debitis illum impedit! Ullam obcaecati perferendis veniam libero illo?
-                            //                     </p>
-                            //                     <div style="float: right">
-                            //                         <a href="" class="btn btn-outline-primary mr-3">Open</a>
-                            //                         <a href="" class="btn btn-outline-primary">Peek</a>
-                            //                     </div>
-
-                            //             </div>
-                            //             </div>
-                            //             `;
-                            //         }
-                            //     }
-                                 
-                            //     else if(i == "ihub"){
-                            //         var ihub_count = data.ihub_count
-                            //         $("#ihub-counter").text(ihub_count+" +")
-                            //         for (var j in data.ihub){
-                            //             ihub_output+=`
-                            //             <li class="list-group-item" style="color:black">
-                            //                 <p>Company =>> ${data.ihub[j].company_name}</p>
-                            //                 <p>Title =>> ${data.ihub[j].job_title}</p>
-                            //                 <p>Description =>> ${data.ihub[j].description} </p>
-                            //                 <p>Link =>> <a href="${data.ihub[j].job_details}" target="_blank">Open</a></p>
-                            //             </li>`; 
-                            //         }
-
-                            //     }
-                            //     else{
-                                    
-                            //     }
-                            // } 
-                            // $("#glassdoor-results").html(glassdoor_output);                            
-                            // $("#ihub").html(ihub_output);                            
-                        }
-                    })
-            })
-
-        })
-    </script>
-</body>
-
-</html>

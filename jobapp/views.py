@@ -45,24 +45,47 @@ def search(request):
     # response_dict = {}
     glass_dict = {}
 
-    def glassdoor():
-        url = "https://www.glassdoor.com/Job/jobs.htm?suggestCount=0&suggestChosen=false&clickSource=searchBtn&typedKeyword={}&sc.keyword={}&locT=N&locId=130&jobType=".format(keyword,keyword)
+    def brighter():
+        url = "https://www.brightermonday.co.ke/jobs?q={}&sort_by=new".format(keyword)       
         headers = {
             'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/  74.0.3729.169 Chrome74.0.3729.169 Safari/537.36',
         }
-
         response = requests.get(url, headers=headers)
-        soup = BeautifulSoup(response.text, "lxml")
-        jobs = soup.find_all("li",{"class":"jl"})
-        # print(url)
-        glass_id = 1
+        brighter_soup = BeautifulSoup(response.text, "lxml")
+        glass_id = len(glass_dict)
+        jobs = brighter_soup.find_all("article", {"class": "search-result"})
         for job in jobs:
-            # print(job.find("div",{"class":"jobEmpolyerName"}))
-            company = job.find("div",{"class" : "jobEmpolyerName"}).text
-            job_title = job.find("div",{"class":"jobContainer"}).a.text
-            job_link = "https://www.glassdoor.com{}".format(job.find("div",{"class":"jobContainer"}).a["href"])
-            glass_dict[glass_id] = {"company":company, "job_title":job_title, "job_link":job_link}
-            glass_id = glass_id + 1
+            company = job.find("div", {"class":"search-result__job-meta"}).text
+            job_title = job.find("a",{"class":"search-result__job-title"})["title"]
+            job_link = job.find("a",{"class":"search-result__job-title"})["href"]
+            job_desc = job.find("div", {"class":"search-result__body"}).text
+            job_type = job.find("span",{"class":"search-result__job-type"}).text
+            job_salary = job.find("div",{"class":"search-result__job-salary"}).text
+            job_location = job.find("div",{"class":"search-result__location"}).text
+
+            glass_dict[glass_id] = {"company":company, "job_title":job_title, "job_link":job_link,"job_desc":job_desc, "job_type":job_type, "job_salary":job_salary, "job_location":job_location}
+            glass_id += 1
+
+
+    # def glassdoor():
+    #     url = "https://www.glassdoor.com/Job/jobs.htm?suggestCount=0&suggestChosen=false&clickSource=searchBtn&typedKeyword={}&sc.keyword={}&locT=N&locId=130&jobType=".format(keyword,keyword)
+    #     headers = {
+    #         'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/  74.0.3729.169 Chrome74.0.3729.169 Safari/537.36',
+    #     }
+    #     glass_id = len(glass_dict)
+    #     response = requests.get(url, headers=headers)
+    #     soup = BeautifulSoup(response.text, "lxml")
+    #     jobs = soup.find_all("li",{"class":"jl"})
+    #     # print(url)
+    #     for job in jobs:
+    #         # print(job.find("div",{"class":"jobEmpolyerName"}))
+    #         company = job.find("div",{"class" : "jobEmpolyerName"}).text
+    #         job_title = job.find("div",{"class":"jobContainer"}).a.text
+    #         job_link = "https://www.glassdoor.com{}".format(job.find("div",{"class":"jobContainer"}).a["href"])
+    #         job_location = job.find("span",{"class":"loc"}).text
+
+    #         glass_dict[glass_id] = {"company":company, "job_title":job_title, "job_link":job_link, "job_location":job_location}
+    #         glass_id = glass_id + 1
 
         # response_dict["glassdoor"] = glass_dict
         # response_dict["glassdoor_count"] = glass_id
@@ -97,28 +120,20 @@ def search(request):
 
     threads = []
 
-    for i in range(os.cpu_count()):
-        threads.append(Thread(target=glassdoor))
-        #threads.append(Thread(target=ihub))
+    for i in range(2):
+        threads.append(Thread(target=brighter))
+        # threads.append(Thread(target=glassdoor))
 
-    print(threads)
     for thread in threads:
         thread.start()
-
+    
     for thread in threads:
         thread.join()
 
-    glassdoor()
+    # glassdoor()
+    # brighter()
     print(time.time() - start_time)
     return JsonResponse(glass_dict)
-
-
-
-
-
-
-
-
 
 
 

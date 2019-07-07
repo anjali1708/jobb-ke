@@ -1,9 +1,10 @@
 
 $(document).ready(function(){
-	"use strict";
+  "use strict";
+  $("#post-area").css("display", "none")
   console.log("Loaded");
 
-    var output = `<h3 class="text-dark text-center" style="margin-bottom: 20px;"> Top Jobs </h3>`
+    var output = `<h2 class="text-dark text-center mt-5" style="margin-bottom: 20px;">Top Job Results </h2>`
 
     $(document).ajaxStart(function(){
       $("#job-listing").html("");
@@ -13,52 +14,57 @@ $(document).ready(function(){
 
     $(document).ajaxComplete(function(){
       $("#spinner").css("display", "none");
+
+      window.setTimeout(function(){
+        $('html').animate({
+          scrollTop: $("#post-area").offset().top
+        }, "slow");
+      }, 1000)
+
     })
 
-    console.log("Fetching.....");
+    // console.log("Fetching.....");
 
-    $.ajax({
-      type: "get",
-      url: "data",
-      success: function (data, status) {
-        console.log(data)
-        for (var i in data){
-          output += `
-          <div class="single-post d-flex flex-row animated fadeInUp">
-          <div class="thumb">
-            <img src="{% static "jobapp/img/post.png" %}" alt="">
-          </div>
-          <div class="details">
-            <div class="title d-flex flex-row justify-content-between">
-              <div class="titles">
-                <h4>${data[i].job_title}</h4>
-                <h6><a href="${data[i].company_link}" target="_blank">${data[i].company_name}</a></h6>					
-              </div>
-              <ul class="btns">
-                <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-                <li><a href="#">Apply</a></li>
-              </ul>
-            </div>
-            <p>
-            ${data[i].description}
-            </p>
-            <h5>Job Nature : ${data[i].job_category}</h5>
-            <p class="address">${data[i].add_date}</p>
-            <p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
-          </div>
-        </div>          
+    // $.ajax({
+    //   type: "get",
+    //   url: "data",
+    //   success: function (data, status) {
+    //     console.log(data)
+    //     for (var i in data){
+    //       output += `
+    //       <div class="single-post d-flex flex-row animated fadeInUp">
+    //       <div class="thumb">
+    //         <img src="{% static "jobapp/img/post.png" %}" alt="">
+    //       </div>
+    //       <div class="details">
+    //         <div class="title d-flex flex-row justify-content-between">
+    //           <div class="titles">
+    //             <h4>${data[i].job_title}</h4>
+    //             <h6><a href="${data[i].company_link}" target="_blank">${data[i].company_name}</a></h6>					
+    //           </div>
+    //           <ul class="btns">
+    //             <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
+    //             <li><a href="#">Apply</a></li>
+    //           </ul>
+    //         </div>
+    //         <p>
+    //         ${data[i].description}
+    //         </p>
+    //         <h5>Job Nature : ${data[i].job_category}</h5>
+    //         <p class="address">${data[i].add_date}</p>
+    //         <p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
+    //       </div>
+    //     </div>          
 
-          `
-        }
-        $("#job-listing").html(output);
+    //       `
+    //     }
+    //     $("#job-listing").html(output);
         
-      }
-    });
-
+    //   }
+    // });
 
   $("#search-btn").click(function(e){
     e.preventDefault();
-
     console.log("Searching.....");
     var search_keyword = $("#search-input").val()
     $.ajax({
@@ -68,7 +74,7 @@ $(document).ready(function(){
         keyword: search_keyword
       },
       success: function (data, status) {
-        output = `<h3 class="text-dark mb-3 animated fadeIn">Search Results</h3>`
+        $("#post-area").css("display", "block")
         var count = 0
         console.log(data)
         for (var i in data){
@@ -77,20 +83,17 @@ $(document).ready(function(){
           <div class="details">
             <div class="title d-flex flex-row justify-content-between">
               <div class="titles">
-                <h4>${data[i].job_title}</h4>
-                <h6>${data[i].company}</h6>					
+                <h3>${data[i].job_title}</h3>
+                <h5 class="mt-3"> <b>${data[i].company}</b></h5>					
               </div>
-              <ul class="btns">
-                <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-                <li><a href="#">Apply</a></li>
-              </ul>
             </div>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
+            ${data[i].job_desc}
             </p>
-            <h5>Job Nature: Full time</h5>
-            <p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
-            <p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
+            <h5>Job Nature:${data[i].job_type}</h5>
+            <p class="address"><span class="lnr lnr-map"></span>${data[i].job_location}</p>
+            <p class="address"><span class="lnr lnr-database"></span>${data[i].job_salary}</p>
+            <p class="address btn btn-info pl-3 pr-3"><a target="_blank" href="${data[i].job_link}" style="color: #fff">Apply</a></p>
           </div>
         </div>`
           count += 1
@@ -100,7 +103,12 @@ $(document).ready(function(){
         $("#results-text").css("display", "block");
         console.log($("#results-text").text())
         $("#job-listing").html(output);
-
+      },
+      error: function(data){
+        $("#spinner").css("display", "none");
+        $("#results-text").html(`Error Could not search for <span>"${search_keyword}"</span></p>
+        `);
+        $("#results-text").css("display", "block");
       }
     });
   })
