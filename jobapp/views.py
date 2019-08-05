@@ -56,11 +56,14 @@ def search(request):
         brighter_soup = BeautifulSoup(response.text, "lxml")
         glass_id = len(glass_dict)
         jobs = brighter_soup.find_all("article", {"class": "search-result"})
+
         for job in jobs:
             company = job.find("div", {"class":"search-result__job-meta"}).text
             job_title = job.find("a",{"class":"search-result__job-title"})["title"]
             job_link = job.find("a",{"class":"search-result__job-title"})["href"]
-            job_desc = job.find("div", {"class":"search-result__body"}).text
+            job_desc = job.find("div", {"class":"search-result__body"})
+            if(job_desc is not None):
+                job_desc = job_desc.text
             job_type = job.find("span",{"class":"search-result__job-type"}).text
             job_salary = job.find("div",{"class":"search-result__job-salary"}).text
             job_location = job.find("div",{"class":"search-result__location"}).text
