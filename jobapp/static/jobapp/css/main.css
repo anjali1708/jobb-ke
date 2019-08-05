@@ -2311,7 +2311,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .banner-content {
-  margin-top: -90px;
+  margin-top: -120px;
   text-align: center;
 }
 
@@ -3640,7 +3640,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .search-page-top {
-  padding: 250px 0px;
+  padding: 200px 0px;
 }
 
 .search-page-top a, .search-page-top .lnr {

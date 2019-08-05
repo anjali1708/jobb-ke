@@ -1,114 +1,134 @@
 {% load static %}
-	<!DOCTYPE html>
-	<html lang="en-us" class="no-js">
-	<head>
-		<!-- Mobile Specific Meta -->
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<!-- Favicon-->
-		<link rel="shortcut icon" href="img/fav.png">
-		<!-- Author Meta -->
-		<meta name="author" content="codepixer">
-		<!-- Meta Description -->
-		<meta name="description" content="">
-		<!-- Meta Keyword -->
-		<meta name="keywords" content="">
-		<!-- meta character set -->
-		<meta charset="UTF-8">
-		<!-- Site Title -->
-		<title>Job Listing</title>
+<!DOCTYPE html>
+<html lang="en-us" class="no-js">
 
-		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
-			<!--
+<head>
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Favicon-->
+	<link rel="shortcut icon" href="img/fav.png">
+	<!-- Author Meta -->
+	<meta name="author" content="codepixer">
+	<!-- Meta Description -->
+	<meta name="description" content="">
+	<!-- Meta Keyword -->
+	<meta name="keywords" content="">
+	<!-- meta character set -->
+	<meta charset="UTF-8">
+	<!-- Site Title -->
+	<title>Job Listing</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+	<!--
 			CSS
 			============================================= -->
-			<link rel="stylesheet" href="{% static "jobapp/css/linearicons.css" %}">
-			<link rel="stylesheet" href="css/font-awesome.min.css">
-			<!-- <link rel="stylesheet" href="{% static "jobapp/css/bootstrap.css" %}"> -->
-			<link rel="stylesheet" href="{% static "jobapp/js/css/bootstrap.min.css" %}">
-			<link rel="stylesheet" href="{% static "jobapp/css/magnific-popup.css" %}">
-			<link rel="stylesheet" href="{% static "jobapp/css/nice-select.css" %}">					
-			<link rel="stylesheet" href="{% static "jobapp/css/animate.min.css" %}">
-			<link rel="stylesheet" href="{% static "jobapp/css/owl.carousel.css" %}">
-			<link rel="stylesheet" href="{% static "jobapp/css/main.css" %}">
-		</head>
-		<body>
-			  <header id="header" id="home">
-			    <div class="container">
-			    	<div class="row align-items-center justify-content-between d-flex">
-				      <div id="logo">
-				        <a href="index.html"><img src="img/logo.png" alt="" title="" /></a>
-				      </div>
-				      <nav id="nav-menu-container">
-				        <ul class="nav-menu">
-				          <li class="menu-active"><a href="https://victornguli.github.io/portfolio/">Home</a></li>			          				          
-				        </ul>
-				      </nav><!-- #nav-menu-container -->		    		
-			    	</div>
-			    </div>
-			  </header><!-- #header -->
+	<link rel="stylesheet" href="{% static "jobapp/css/linearicons.css" %}">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<!-- <link rel="stylesheet" href="{% static "jobapp/css/bootstrap.css" %}"> -->
+	<link rel="stylesheet" href="{% static "jobapp/js/css/bootstrap.min.css" %}">
+	<link rel="stylesheet" href="{% static "jobapp/css/magnific-popup.css" %}">
+	<link rel="stylesheet" href="{% static "jobapp/css/nice-select.css" %}">
+	<link rel="stylesheet" href="{% static "jobapp/css/animate.min.css" %}">
+	<link rel="stylesheet" href="{% static "jobapp/css/owl.carousel.css" %}">
+	<link rel="stylesheet" href="{% static "jobapp/css/main.css" %}">
+</head>
 
-			<!-- start banner Area -->
-			<section class="banner-area relative" id="home">	
-				<div class="overlay overlay-bg"></div>
-				<div class="container">
-					<div class="row search-page-top d-flex align-items-center justify-content-center">
-						<div class="banner-content col-lg-12">
-							<h1 class="text-white">
-								Jobb Ke				
-							</h1>
-							<p class="text-white link-nav">
-									Search Quickly through Kenyan job boards and postings
-								<!-- <a href="index.html">Home </a> <span class="lnr lnr-arrow-right"></span> <a href="search.html"> Job details page</a> -->
-							</p>	
-							<form action="" class="search-form-area" id="search-form">
-								<div class="row justify-content-center form-wrap">
-									<div class="col-lg-10 form-cols">
-										<input type="text" id="search-input" class="form-control" name="search" placeholder="What is the title of the job that you are you looking for?">
-									</div>
-									<!-- <div class="col-lg-3 form-cols">
-										<div class="default-select" id="default-selects"">
-											<select>
-												<option value="1">Select area</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-lg-3 form-cols">
-										<div class="default-select" id="default-selects2">
-											<select>
-												<option value="1">All Category</option>
-												<option value="2">Healthcare</option>
-												<option value="3">Technology</option>
-												<option value="4">Goverment</option>
-												<option value="5">Business</option>
-											</select>
-										</div>										
-									</div> -->
-									<div class="col-lg-2 form-cols">
-									    <button type="button" id="search-btn" class="btn btn-info">
-									      <span class="lnr lnr-magnifier"></span> Search
-										</button>
-									</div>	
-									
-								</div>
-							</form>	
-
-							<div id="spinner" class="m-auto" style="display: none">
-								<div class="spinner-border text-light" style="width: 4em; height: 4em;"></div>
-							</div>	
-							<!-- <div class="spinner-grow text-info" style="margin: auto;"></div>-->
-							<p class="text-white" style="display: none" id="results-text">Results found for <span>"Web developer"</span></p>
-						</div>											
-					</div>
+<body>
+	<header id="header" id="home">
+		<div class="container">
+			<div class="row align-items-center justify-content-between d-flex">
+				<div id="logo">
+					<a href="index.html"><img src="img/logo.png" alt="" title="" /></a>
 				</div>
-			</section>
-			<!-- End banner Area -->	
-			
-			<!-- Start post Area -->
-			<section class="post-area section-gap" id="post-area">
-				<div class="container">
-					<div class="row justify-content-center d-flex">
-						<div class="col-lg-8 post-list" id="job-listing">
-							<!--
+				<nav id="nav-menu-container">
+					<ul class="nav-menu">
+						<li class="menu-active"><a href="https://victornguli.github.io/portfolio/">Home</a></li>
+					</ul>
+				</nav><!-- #nav-menu-container -->
+			</div>
+		</div>
+	</header><!-- #header -->
+
+	<!-- start banner Area -->
+	<section class="banner-area relative" id="home">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div class="row search-page-top d-flex align-items-center justify-content-center">
+				<div class="banner-content col-lg-12">
+					<h1 class="text-white">
+						Jobb Ke
+					</h1>
+					<p class="text-white link-nav">
+						Search Quickly through Kenyan job boards and postings
+						<!-- <a href="index.html">Home </a> <span class="lnr lnr-arrow-right"></span> <a href="search.html"> Job details page</a> -->
+					</p>
+					<form action="" class="search-form-area" id="search-form">
+						<div class="row justify-content-center form-wrap">
+							<div class="col-lg-7 form-cols">
+								<input type="text" id="search-input" class="form-control" name="search"
+									placeholder="What is the of the job title ?">
+							</div>
+							<div class="col-lg-3 form-cols">
+								<select class="form-control" name="job_category" id="job-category">
+									<option value="">All Job Categories</option>
+									<option value="accounting-auditing">Accounting, Auditing &amp; Finance</option>
+									<option value="administrative">Administrative &amp; Office</option>
+									<option value="farming-agriculture">Agriculture &amp; Farming</option>
+									<option value="building-architecture">Building &amp; Architecture</option>
+									<option value="social-services">Community &amp; Social Services</option>
+									<option value="consulting">Consulting &amp; Strategy</option>
+									<option value="creative">Creative &amp; Design</option>
+									<option value="customer-service">Customer Service &amp; Support</option>
+									<option value="engineering">Engineering</option>
+									<option value="food-services-catering">Food Services &amp; Catering</option>
+									<option value="health-safety">Health &amp; Safety</option>
+									<option value="hospitality">Hospitality/Leisure/Travel</option>
+									<option value="human-resources">Human Resources</option>
+									<option value="it-software">IT &amp; Software</option>
+									<option value="legal">Legal Services</option>
+									<option value="management-business-development">Management &amp; Business
+										Development</option>
+									<option value="marketing-communications">Marketing &amp; Communications</option>
+									<option value="medical-pharmaceutical">Medical &amp; Pharmaceutical</option>
+									<option value="natural-sciences">Natural Sciences</option>
+									<option value="other">Other</option>
+									<option value="project-management">Project &amp; Product Management</option>
+									<option value="quality-control">Quality Control &amp; Assurance </option>
+									<option value="property-management">Real Estate &amp; Property Management</option>
+									<option value="teaching-training">Research, Teaching &amp; Training</option>
+									<option value="sales">Sales</option>
+									<option value="security">Security</option>
+									<option value="supply-chain-procurement">Supply Chain &amp; Procurement</option>
+									<option value="trades-services">Trades &amp; Services</option>
+									<option value="transport-logistics">Transport &amp; Logistics</option>
+								</select>										
+							</div>
+							<div class="col-lg-2 form-cols">
+								<button type="button" id="search-btn" class="btn btn-info">
+									<span class="lnr lnr-magnifier"></span> Search
+								</button>
+							</div>
+						</div>
+					</form>
+
+					<div id="spinner" class="m-auto" style="display: none">
+						<div class="spinner-border text-light" style="width: 4em; height: 4em;"></div>
+					</div>
+					<!-- <div class="spinner-grow text-info" style="margin: auto;"></div>-->
+					<p class="text-white" style="display: none" id="results-text">Results found for <span>"Web
+							developer"</span></p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End banner Area -->
+
+	<!-- Start post Area -->
+	<section class="post-area section-gap" id="post-area">
+		<div class="container">
+			<div class="row justify-content-center d-flex">
+				<div class="col-lg-8 post-list" id="job-listing">
+					<!--
 							<div class="single-post d-flex flex-row">
 								<div class="thumb">
 									<img src="img/post.png" alt="">
@@ -143,15 +163,15 @@
 									<p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
 								</div>
 							</div> -->
-						</div>
-					</div>
-				</div>	
-			</section>
-			
-			<!-- End post Area -->
+				</div>
+			</div>
+		</div>
+	</section>
 
-			<!-- Start callto-action Area -->
-			<!-- <section class="callto-action-area section-gap">
+	<!-- End post Area -->
+
+	<!-- Start callto-action Area -->
+	<!-- <section class="callto-action-area section-gap">
 				<div class="container">
 					<div class="row d-flex justify-content-center">
 						<div class="menu-content col-lg-9">
@@ -165,10 +185,10 @@
 					</div>	
 				</div>	
 			</section> -->
-			<!-- End calto-action Area -->			
-		
-			<!-- start footer Area -->
-			<!--		
+	<!-- End calto-action Area -->
+
+	<!-- start footer Area -->
+	<!--		
 			<footer class="footer-area section-gap">
 				<div class="container">
 					<div class="row">
@@ -237,31 +257,32 @@
 				</div>
 			</footer>
 			-->
-			<!-- End footer Area -->		
+	<!-- End footer Area -->
 
 
-			<script src="{% static "jobapp/js/vendor/jquery-2.2.4.min.js" %}"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-			<script src="{% static "jobapp/js/vendor/bootstrap.min.js" %} "></script>			
-			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-  			<script src="{% static "jobapp/js/easing.min.js" %} "></script>			
-			<script src="{% static "jobapp/js/hoverIntent.js" %}"></script>
-			<script src="{% static "jobapp/js/superfish.min.js" %}"></script>	
-			<script src="{% static "jobapp/js/jquery.ajaxchimp.min.js" %}"></script>
-			<script src="{% static "jobapp/js/jquery.magnific-popup.min.js" %}" ></script>	
-			<script src="{% static "jobapp/js/owl.carousel.min.js" %}"></script>			
-			<script src="{% static "jobapp/js/jquery.sticky.js" %}"></script>
-			<script src="{% static "jobapp/js/jquery.nice-select.min.js" %}"></script>			
-			<script src="{% static "jobapp/js/parallax.min.js" %}"></script>		
-			<script src="{% static "jobapp/js/mail-script.js" %}"></script>	
-			<script src="{% static "jobapp/js/main.js" %}"></script>	
+	<script src="{% static "jobapp/js/vendor/jquery-2.2.4.min.js" %}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="{% static "jobapp/js/vendor/bootstrap.min.js" %} "></script>
+	<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+	<script src="{% static "jobapp/js/easing.min.js" %} "></script>
+	<script src="{% static "jobapp/js/hoverIntent.js" %}"></script>
+	<script src="{% static "jobapp/js/superfish.min.js" %}"></script>
+	<script src="{% static "jobapp/js/jquery.ajaxchimp.min.js" %}"></script>
+	<script src="{% static "jobapp/js/jquery.magnific-popup.min.js" %}"></script>
+	<script src="{% static "jobapp/js/owl.carousel.min.js" %}"></script>
+	<script src="{% static "jobapp/js/jquery.sticky.js" %}"></script>
+	<script src="{% static "jobapp/js/jquery.nice-select.min.js" %}"></script>
+	<script src="{% static "jobapp/js/parallax.min.js" %}"></script>
+	<script src="{% static "jobapp/js/mail-script.js" %}"></script>
+	<script src="{% static "jobapp/js/main.js" %}"></script>
 
-			<script>
-				new WOW().init()
-			</script>
-			
-		</body>
-	</html>
+	<script>
+		new WOW().init()
+	</script>
 
+</body>
 
-
+</html>

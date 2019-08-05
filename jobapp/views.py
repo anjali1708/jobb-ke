@@ -40,13 +40,15 @@ def homeView(request):
 
 def search(request):
     keyword = ("-").join(request.GET["keyword"].split(" "))
+    category = request.GET["job_category"]
+    print(category)
     start_time = time.time()
     # keyword = "software-developer"
     # response_dict = {}
     glass_dict = {}
 
     def brighter():
-        url = "https://www.brightermonday.co.ke/jobs?q={}&sort_by=new".format(keyword)       
+        url = "https://www.brightermonday.co.ke/jobs/{}/?q={}&sort_by=new".format(category,keyword)       
         headers = {
             'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/  74.0.3729.169 Chrome74.0.3729.169 Safari/537.36',
         }
@@ -120,18 +122,18 @@ def search(request):
 
     threads = []
 
-    for i in range(4):
-        threads.append(Thread(target=brighter))
-        # threads.append(Thread(target=glassdoor))
+    # for i in range(os.cpu_count()):
+    #     threads.append(Thread(target=brighter))
+         # threads.append(Thread(target=glassdoor))
 
-    for thread in threads:
-        thread.start()
+    # for thread in threads:
+    #     thread.start()
     
-    for thread in threads:
-        thread.join()
+    # for thread in threads:
+    #     thread.join()
 
     # glassdoor()
-    # brighter()
+    brighter()
     print(time.time() - start_time)
     return JsonResponse(glass_dict)
 

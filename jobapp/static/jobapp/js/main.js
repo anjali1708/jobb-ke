@@ -2,7 +2,7 @@
 $(document).ready(function(){
   // "use strict";
   $("#post-area").css("display", "none")
-  console.log("Loaded");
+  // console.log("Loaded");
 
     var output = `<h2 class="text-dark text-center mt-5" style="margin-bottom: 20px;">Top Job Results </h2>`
 
@@ -65,18 +65,20 @@ $(document).ready(function(){
   
   function search(){
     let searchOutput = ``;
-    console.log("Searching.....");
+    // console.log("Searching.....");
     var search_keyword = $("#search-input").val()
+    var job_category = $("#job-category").val()
     $.ajax({
       type: "get",
       url: "search",
       data: {
-        keyword: search_keyword
+        keyword: search_keyword,
+        job_category: job_category,
       },
-      success: function (data, status) {
+      success: function (data, status){
         $("#post-area").css("display", "block");
         var count = 0;
-        console.log(data);
+        // console.log(data);
         for (var i in data){
           searchOutput += `
           <div class="single-post d-flex flex-row animated fadeInUp">
@@ -106,7 +108,7 @@ $(document).ready(function(){
           searchOutput = `<div class="alert alert-danger">No job postings have been found for that keyword or category</div>`
         }
         $("#job-listing").append(searchOutput);
-        console.log($("#job-listing").text())
+        // console.log($("#job-listing").text())
       },
       error: function(data){
         $("#spinner").css("display", "none");
@@ -392,18 +394,9 @@ $(document).ready(function(){
     }
 
 
-    function searchJobs(){
-
-    }
-
-    
     $(document).ready(function() {
             $('#mc_embed_signup').find('form').ajaxChimp();
     });      
-
-
-
-
 
 
 
