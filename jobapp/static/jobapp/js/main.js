@@ -1,6 +1,6 @@
 
 $(document).ready(function(){
-  "use strict";
+  // "use strict";
   $("#post-area").css("display", "none")
   console.log("Loaded");
 
@@ -19,7 +19,7 @@ $(document).ready(function(){
         $('html').animate({
           scrollTop: $("#post-area").offset().top
         }, "slow");
-      }, 1000)
+      }, 500)
 
     })
 
@@ -62,9 +62,9 @@ $(document).ready(function(){
         
     //   }
     // });
-
-  $("#search-btn").click(function(e){
-    e.preventDefault();
+  
+  function search(){
+    let searchOutput = ``;
     console.log("Searching.....");
     var search_keyword = $("#search-input").val()
     $.ajax({
@@ -74,11 +74,11 @@ $(document).ready(function(){
         keyword: search_keyword
       },
       success: function (data, status) {
-        $("#post-area").css("display", "block")
-        var count = 0
-        console.log(data)
+        $("#post-area").css("display", "block");
+        var count = 0;
+        console.log(data);
         for (var i in data){
-          output += `
+          searchOutput += `
           <div class="single-post d-flex flex-row animated fadeInUp">
           <div class="details">
             <div class="title d-flex flex-row justify-content-between">
@@ -95,14 +95,18 @@ $(document).ready(function(){
             <p class="address"><span class="lnr lnr-database"></span>${data[i].job_salary}</p>
             <p class="address btn btn-info pl-3 pr-3"><a target="_blank" href="${data[i].job_link}" style="color: #fff">Apply</a></p>
           </div>
-        </div>`
-          count += 1
+        </div>`;
+          count += 1;
         }
         $("#results-text").html(`${count} Results found for <span>"${search_keyword}"</span></p>
         `);
         $("#results-text").css("display", "block");
-        console.log($("#results-text").text())
         $("#job-listing").html(output);
+        if(count < 1){
+          searchOutput = `<div class="alert alert-danger">No job postings have been found for that keyword or category</div>`
+        }
+        $("#job-listing").append(searchOutput);
+        console.log($("#job-listing").text())
       },
       error: function(data){
         $("#spinner").css("display", "none");
@@ -111,6 +115,17 @@ $(document).ready(function(){
         $("#results-text").css("display", "block");
       }
     });
+  }  
+  
+
+  $("#search-btn").on("click",function(e){
+    e.preventDefault();
+    search()
+  })
+
+  $("#search-form").on("submit",function(e){
+    e.preventDefault();
+    search()
   })
   
 

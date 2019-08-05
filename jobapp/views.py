@@ -120,7 +120,7 @@ def search(request):
 
     threads = []
 
-    for i in range(2):
+    for i in range(4):
         threads.append(Thread(target=brighter))
         # threads.append(Thread(target=glassdoor))
 
