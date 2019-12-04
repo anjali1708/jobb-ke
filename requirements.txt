@@ -1,7 +1,7 @@
 beautifulsoup4==4.7.1
 certifi==2019.3.9
 chardet==3.0.4
-Django==2.2.2
+Django==2.2.8
 django-mongoengine==0.3.3
 idna==2.8
 mongoengine==0.17.0
